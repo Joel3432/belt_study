@@ -121,6 +121,72 @@ ggplot(hdata, aes(x=Condition, y=NL_RMS_RMT)) +
         geom_boxplot()+geom_boxplot(outlier.colour="red", outlier.shape=8,
                                     outlier.size=4)+geom_jitter(shape=16, position=position_jitter(0.2))+ggtitle("NL RMS RMT")
 
+#-------------------------------------NL Mean-------------------------------------------
+ggplot(hdata, aes(x=Condition, y=NL_Mean_LVL)) + 
+        geom_boxplot()+ geom_boxplot(outlier.colour="red", outlier.shape=8,
+                                     outlier.size=4)+geom_jitter(shape=16, position=position_jitter(0.2))+ggtitle("NL Mean LVL")
+
+ggplot(hdata, aes(x=Condition, y=NL_Mean_RVL)) + 
+        geom_boxplot()+geom_boxplot(outlier.colour="red", outlier.shape=8,
+                                    outlier.size=4)+geom_jitter(shape=16, position=position_jitter(0.2))+ggtitle("NL Mean RVL")
+
+ggplot(hdata, aes(x=Condition, y=NL_Mean_LBF)) + 
+        geom_boxplot()+geom_boxplot(outlier.colour="red", outlier.shape=8,
+                                    outlier.size=4)+geom_jitter(shape=16, position=position_jitter(0.2))+ggtitle("NL Mean LBF")
+
+ggplot(hdata, aes(x=Condition, y=NL_Mean_RBF)) + 
+        geom_boxplot()+geom_boxplot(outlier.colour="red", outlier.shape=8,
+                                    outlier.size=4)+geom_jitter(shape=16, position=position_jitter(0.2))+ggtitle("NL Mean RBF")
+
+ggplot(hdata, aes(x=Condition, y=NL_Mean_LRA)) + 
+        geom_boxplot()+geom_boxplot(outlier.colour="red", outlier.shape=8,
+                                    outlier.size=4)+geom_jitter(shape=16, position=position_jitter(0.2))+ggtitle("NL Mean LRA")
+
+ggplot(hdata, aes(x=Condition, y=NL_Mean_RRA)) + 
+        geom_boxplot()+geom_boxplot(outlier.colour="red", outlier.shape=8,
+                                    outlier.size=4)+geom_jitter(shape=16, position=position_jitter(0.2))+ggtitle("NL Mean RRA")
+
+ggplot(hdata, aes(x=Condition, y=NL_Mean_LMT)) + 
+        geom_boxplot()+geom_boxplot(outlier.colour="red", outlier.shape=8,
+                                    outlier.size=4)+geom_jitter(shape=16, position=position_jitter(0.2))+ggtitle("NL Mean LMT")
+
+ggplot(hdata, aes(x=Condition, y=NL_Mean_RMT)) + 
+        geom_boxplot()+geom_boxplot(outlier.colour="red", outlier.shape=8,
+                                    outlier.size=4)+geom_jitter(shape=16, position=position_jitter(0.2))+ggtitle("NL Mean RMT")
+
+#-------------------------------------NL Peak-------------------------------------------
+ggplot(hdata, aes(x=Condition, y=NL_Peak_LVL)) + 
+        geom_boxplot()+ geom_boxplot(outlier.colour="red", outlier.shape=8,
+                                     outlier.size=4)+geom_jitter(shape=16, position=position_jitter(0.2))+ggtitle("NL Peak LVL")
+
+ggplot(hdata, aes(x=Condition, y=NL_Peak_RVL)) + 
+        geom_boxplot()+geom_boxplot(outlier.colour="red", outlier.shape=8,
+                                    outlier.size=4)+geom_jitter(shape=16, position=position_jitter(0.2))+ggtitle("NL Peak RVL")
+
+ggplot(hdata, aes(x=Condition, y=NL_Peak_LBF)) + 
+        geom_boxplot()+geom_boxplot(outlier.colour="red", outlier.shape=8,
+                                    outlier.size=4)+geom_jitter(shape=16, position=position_jitter(0.2))+ggtitle("NL Peak LBF")
+
+ggplot(hdata, aes(x=Condition, y=NL_Peak_RBF)) + 
+        geom_boxplot()+geom_boxplot(outlier.colour="red", outlier.shape=8,
+                                    outlier.size=4)+geom_jitter(shape=16, position=position_jitter(0.2))+ggtitle("NL Peak RBF")
+
+ggplot(hdata, aes(x=Condition, y=NL_Peak_LRA)) + 
+        geom_boxplot()+geom_boxplot(outlier.colour="red", outlier.shape=8,
+                                    outlier.size=4)+geom_jitter(shape=16, position=position_jitter(0.2))+ggtitle("NL Peak LRA")
+
+ggplot(hdata, aes(x=Condition, y=NL_Peak_RRA)) + 
+        geom_boxplot()+geom_boxplot(outlier.colour="red", outlier.shape=8,
+                                    outlier.size=4)+geom_jitter(shape=16, position=position_jitter(0.2))+ggtitle("NL Peak RRA")
+
+ggplot(hdata, aes(x=Condition, y=NL_Peak_LMT)) + 
+        geom_boxplot()+geom_boxplot(outlier.colour="red", outlier.shape=8,
+                                    outlier.size=4)+geom_jitter(shape=16, position=position_jitter(0.2))+ggtitle("NL Peak LMT")
+
+ggplot(hdata, aes(x=Condition, y=NL_Peak_RMT)) + 
+        geom_boxplot()+geom_boxplot(outlier.colour="red", outlier.shape=8,
+                                    outlier.size=4)+geom_jitter(shape=16, position=position_jitter(0.2))+ggtitle("NL Peak RMT")
+
 
 #------------------------------Bar Peak-------------------------------------
 ggplot(hdata, aes(x=Condition, y=Br_Peak_LVL)) + 
@@ -421,6 +487,72 @@ ggplot(hdata, aes(x=Condition, y=NL_RMS_LMT)) +
 ggplot(hdata, aes(x=Condition, y=NL_RMS_RMT)) + 
         geom_boxplot()+geom_boxplot(outlier.colour="red", outlier.shape=8,
                                     outlier.size=4)+geom_jitter(shape=16, position=position_jitter(0.2))+ggtitle("NL RMS RMT")
+
+#-------------------------------------NL Mean-------------------------------------------
+ggplot(hdata, aes(x=Condition, y=NL_Mean_LVL)) + 
+        geom_boxplot()+ geom_boxplot(outlier.colour="red", outlier.shape=8,
+                                     outlier.size=4)+geom_jitter(shape=16, position=position_jitter(0.2))+ggtitle("NL Mean LVL")
+
+ggplot(hdata, aes(x=Condition, y=NL_Mean_RVL)) + 
+        geom_boxplot()+geom_boxplot(outlier.colour="red", outlier.shape=8,
+                                    outlier.size=4)+geom_jitter(shape=16, position=position_jitter(0.2))+ggtitle("NL Mean RVL")
+
+ggplot(hdata, aes(x=Condition, y=NL_Mean_LBF)) + 
+        geom_boxplot()+geom_boxplot(outlier.colour="red", outlier.shape=8,
+                                    outlier.size=4)+geom_jitter(shape=16, position=position_jitter(0.2))+ggtitle("NL Mean LBF")
+
+ggplot(hdata, aes(x=Condition, y=NL_Mean_RBF)) + 
+        geom_boxplot()+geom_boxplot(outlier.colour="red", outlier.shape=8,
+                                    outlier.size=4)+geom_jitter(shape=16, position=position_jitter(0.2))+ggtitle("NL Mean RBF")
+
+ggplot(hdata, aes(x=Condition, y=NL_Mean_LRA)) + 
+        geom_boxplot()+geom_boxplot(outlier.colour="red", outlier.shape=8,
+                                    outlier.size=4)+geom_jitter(shape=16, position=position_jitter(0.2))+ggtitle("NL Mean LRA")
+
+ggplot(hdata, aes(x=Condition, y=NL_Mean_RRA)) + 
+        geom_boxplot()+geom_boxplot(outlier.colour="red", outlier.shape=8,
+                                    outlier.size=4)+geom_jitter(shape=16, position=position_jitter(0.2))+ggtitle("NL Mean RRA")
+
+ggplot(hdata, aes(x=Condition, y=NL_Mean_LMT)) + 
+        geom_boxplot()+geom_boxplot(outlier.colour="red", outlier.shape=8,
+                                    outlier.size=4)+geom_jitter(shape=16, position=position_jitter(0.2))+ggtitle("NL Mean LMT")
+
+ggplot(hdata, aes(x=Condition, y=NL_Mean_RMT)) + 
+        geom_boxplot()+geom_boxplot(outlier.colour="red", outlier.shape=8,
+                                    outlier.size=4)+geom_jitter(shape=16, position=position_jitter(0.2))+ggtitle("NL Mean RMT")
+
+#-------------------------------------NL Peak-------------------------------------------
+ggplot(hdata, aes(x=Condition, y=NL_Peak_LVL)) + 
+        geom_boxplot()+ geom_boxplot(outlier.colour="red", outlier.shape=8,
+                                     outlier.size=4)+geom_jitter(shape=16, position=position_jitter(0.2))+ggtitle("NL Peak LVL")
+
+ggplot(hdata, aes(x=Condition, y=NL_Peak_RVL)) + 
+        geom_boxplot()+geom_boxplot(outlier.colour="red", outlier.shape=8,
+                                    outlier.size=4)+geom_jitter(shape=16, position=position_jitter(0.2))+ggtitle("NL Peak RVL")
+
+ggplot(hdata, aes(x=Condition, y=NL_Peak_LBF)) + 
+        geom_boxplot()+geom_boxplot(outlier.colour="red", outlier.shape=8,
+                                    outlier.size=4)+geom_jitter(shape=16, position=position_jitter(0.2))+ggtitle("NL Peak LBF")
+
+ggplot(hdata, aes(x=Condition, y=NL_Peak_RBF)) + 
+        geom_boxplot()+geom_boxplot(outlier.colour="red", outlier.shape=8,
+                                    outlier.size=4)+geom_jitter(shape=16, position=position_jitter(0.2))+ggtitle("NL Peak RBF")
+
+ggplot(hdata, aes(x=Condition, y=NL_Peak_LRA)) + 
+        geom_boxplot()+geom_boxplot(outlier.colour="red", outlier.shape=8,
+                                    outlier.size=4)+geom_jitter(shape=16, position=position_jitter(0.2))+ggtitle("NL Peak LRA")
+
+ggplot(hdata, aes(x=Condition, y=NL_Peak_RRA)) + 
+        geom_boxplot()+geom_boxplot(outlier.colour="red", outlier.shape=8,
+                                    outlier.size=4)+geom_jitter(shape=16, position=position_jitter(0.2))+ggtitle("NL Peak RRA")
+
+ggplot(hdata, aes(x=Condition, y=NL_Peak_LMT)) + 
+        geom_boxplot()+geom_boxplot(outlier.colour="red", outlier.shape=8,
+                                    outlier.size=4)+geom_jitter(shape=16, position=position_jitter(0.2))+ggtitle("NL Peak LMT")
+
+ggplot(hdata, aes(x=Condition, y=NL_Peak_RMT)) + 
+        geom_boxplot()+geom_boxplot(outlier.colour="red", outlier.shape=8,
+                                    outlier.size=4)+geom_jitter(shape=16, position=position_jitter(0.2))+ggtitle("NL Peak RMT")
 
 
 #------------------------------Bar Peak-------------------------------------
@@ -922,6 +1054,100 @@ art.con(NL_artRMT, ~Condition, adjust="bonferroni") %>%  # run ART-C for X1
                              cutpoints = c(0, 0.001, 0.01, 0.05, 0.1, 1),
                              symbols = c("***", "**", "*", ".", " ")))
 
+#mean EMG
+NL_artLVL_mean = art(NL_Mean_LVL ~ Condition + (1|Subject), data=hdata)
+summary(NL_artLVL_mean)
+anova(NL_artLVL_mean)
+
+art.con(NL_artLVL_mean, ~Condition, adjust="bonferroni") %>%  # run ART-C for X1
+        summary() %>%  # add significance stars to the output
+        mutate(sig. = symnum(p.value, corr=FALSE, na=FALSE,
+                             cutpoints = c(0, 0.001, 0.01, 0.05, 0.1, 1),
+                             symbols = c("***", "**", "*", ".", " ")))
+
+
+NL_artRVL_mean = art(NL_Mean_RVL ~ Condition + (1|Subject), data=hdata)
+summary(NL_artRVL_mean)
+anova(NL_artRVL_mean)
+
+NL_artLBF_mean = art(NL_Mean_LBF ~ Condition + (1|Subject), data=hdata)
+summary(NL_artLBF_mean)
+anova(NL_artLBF_mean)
+
+NL_artRBF_mean = art(NL_Mean_RBF ~ Condition + (1|Subject), data=hdata)
+summary(NL_artRBF_mean)
+anova(NL_artRBF_mean)
+art.con(NL_artRBF_mean, ~Condition, adjust="bonferroni") %>%  # run ART-C for X1
+        summary() %>%  # add significance stars to the output
+        mutate(sig. = symnum(p.value, corr=FALSE, na=FALSE,
+                             cutpoints = c(0, 0.001, 0.01, 0.05, 0.1, 1),
+                             symbols = c("***", "**", "*", ".", " ")))
+
+NL_artLRA_mean = art(NL_Mean_LRA ~ Condition + (1|Subject), data=hdata)
+summary(NL_artLRA_mean)
+anova(NL_artLRA_mean)
+
+NL_artRRA_mean = art(NL_Mean_RRA ~ Condition + (1|Subject), data=hdata)
+summary(NL_artRRA_mean)
+anova(NL_artRRA_mean)
+
+NL_artLMT_mean = art(NL_Mean_LMT ~ Condition + (1|Subject), data=hdata)
+summary(NL_artLMT_mean)
+anova(NL_artLMT_mean)
+art.con(NL_artLMT_mean, ~Condition, adjust="bonferroni") %>%  # run ART-C for X1
+        summary() %>%  # add significance stars to the output
+        mutate(sig. = symnum(p.value, corr=FALSE, na=FALSE,
+                             cutpoints = c(0, 0.001, 0.01, 0.05, 0.1, 1),
+                             symbols = c("***", "**", "*", ".", " ")))
+
+NL_artRMT_mean = art(NL_Mean_RMT ~ Condition + (1|Subject), data=hdata)
+summary(NL_artRMT_mean)
+anova(NL_artRMT_mean)
+
+#peak emg
+NL_artLVL_Peak = art(NL_Peak_LVL ~ Condition + (1|Subject), data=hdata)
+summary(NL_artLVL_Peak)
+anova(NL_artLVL_Peak)
+
+NL_artRVL_Peak = art(NL_Peak_RVL ~ Condition + (1|Subject), data=hdata)
+summary(NL_artRVL_Peak)
+anova(NL_artRVL_Peak)
+
+NL_artLBF_Peak = art(NL_Peak_LBF ~ Condition + (1|Subject), data=hdata)
+summary(NL_artLBF_Peak)
+anova(NL_artLBF_Peak)
+
+NL_artRBF_Peak = art(NL_Peak_RBF ~ Condition + (1|Subject), data=hdata)
+summary(NL_artRBF_Peak)
+anova(NL_artRBF_Peak)
+
+NL_artLRA_Peak = art(NL_Peak_LRA ~ Condition + (1|Subject), data=hdata)
+summary(NL_artLRA_Peak)
+anova(NL_artLRA_Peak)
+
+NL_artRRA_Peak = art(NL_Peak_RRA ~ Condition + (1|Subject), data=hdata)
+summary(NL_artRRA_Peak)
+anova(NL_artRRA_Peak)
+
+NL_artLMT_Peak = art(NL_Peak_LMT ~ Condition + (1|Subject), data=hdata)
+summary(NL_artLMT_Peak)
+anova(NL_artLMT_Peak)
+art.con(NL_artLMT_Peak, ~Condition, adjust="bonferroni") %>%  # run ART-C for X1
+        summary() %>%  # add significance stars to the output
+        mutate(sig. = symnum(p.value, corr=FALSE, na=FALSE,
+                             cutpoints = c(0, 0.001, 0.01, 0.05, 0.1, 1),
+                             symbols = c("***", "**", "*", ".", " ")))
+
+NL_artRMT_Peak = art(NL_Peak_RMT ~ Condition + (1|Subject), data=hdata)
+summary(NL_artRMT_Peak)
+anova(NL_artRMT_Peak)
+art.con(NL_artRMT_Peak, ~Condition, adjust="bonferroni") %>%  # run ART-C for X1
+        summary() %>%  # add significance stars to the output
+        mutate(sig. = symnum(p.value, corr=FALSE, na=FALSE,
+                             cutpoints = c(0, 0.001, 0.01, 0.05, 0.1, 1),
+                             symbols = c("***", "**", "*", ".", " ")))
+
+
 #Lifting Bar only
 Br_artLVL = art(Br_Peak_LVL ~ Condition + (1|Subject), data=hdata)
 summary(Br_artLVL)
@@ -1057,9 +1283,6 @@ art.con(art_totalmeanforceNorm, ~Condition, adjust="bonferroni") %>%  # run ART-
         mutate(sig. = symnum(p.value, corr=FALSE, na=FALSE,
                              cutpoints = c(0, 0.001, 0.01, 0.05, 0.1, 1),
                              symbols = c("***", "**", "*", ".", " ")))
-
-#test #test #test
-
 
 #test
 
@@ -2411,7 +2634,7 @@ boxplot(NL_RMS_LMT~Condition,data=hdata, main="LMT RMS",
 boxplot(NL_RMS_RMT~Condition,data=hdata, main="RMT RMS",
         xlab="EMG Mean (mV)", ylab="Condition")$out
 
-#-----------------------------Mean Frequency-------------------------
+#-----------------------------Mean EMG Unloaded-------------------------
 boxplot(NL_Mean_LVL~Condition,data=hdata, main="LVL Mean",
         xlab="EMG Mean (mV)", ylab="Condition") 
 
@@ -2514,49 +2737,49 @@ boxplot(max_Peak_RMT~Condition,data=hdata, main="RMT Peak",
 #-------------------------------vGRF---------------------------------
 
 #Peak-----------------------------------------------------------
-boxplot(PeakForce_L_N~Condition,data=hdata2, main="Peak Left",
+boxplot(PeakForce_L_N~Condition,data=hdata, main="Peak Left",
         xlab="vGRF (mN)", ylab="Condition")$out 
 
-boxplot(PeakForce_R_N~Condition,data=hdata2, main="Peak Right",
+boxplot(PeakForce_R_N~Condition,data=hdata, main="Peak Right",
         xlab="vGRF (mN)", ylab="Condition")$out
 
-boxplot(total_PeakForce_N~Condition,data=hdata2, main="Peak Total",
+boxplot(total_PeakForce_N~Condition,data=hdata, main="Peak Total",
         xlab="vGRF (mN)", ylab="Condition")$out
 
-boxplot(peakForceAsymm_percent~Condition,data=hdata2, main="Peak Asymm",
+boxplot(peakForceAsymm_percent~Condition,data=hdata, main="Peak Asymm",
         xlab="Percentage", ylab="Condition")$out
 
 #-----%-of-BW-------------------------------------------------------
-boxplot(peakForceNorm_L_BW~Condition,data=hdata2, main="Peak Left",
+boxplot(peakForceNorm_L_BW~Condition,data=hdata, main="Peak Left",
         xlab="Percentage of BW", ylab="Condition")$out 
 
-boxplot(peakForceNorm_R_BW~Condition,data=hdata2, main="Peak Right",
+boxplot(peakForceNorm_R_BW~Condition,data=hdata, main="Peak Right",
         xlab="Percentage of BW", ylab="Condition")$out
 
-boxplot(total_PeakForce_BW~Condition,data=hdata2, main="Peak Total",
+boxplot(total_PeakForce_BW~Condition,data=hdata, main="Peak Total",
         xlab="Percentage of BW", ylab="Condition")$out
 
 #Mean---------------------------------------------------------
-boxplot(meanForce_L_N~Condition,data=hdata2, main="Mean Left",
+boxplot(meanForce_L_N~Condition,data=hdata, main="Mean Left",
         xlab="vGRF (mN)", ylab="Condition")$out 
 
-boxplot(meanForce_R_N~Condition,data=hdata2, main="Mean Right",
+boxplot(meanForce_R_N~Condition,data=hdata, main="Mean Right",
         xlab="vGRF (mN)", ylab="Condition")$out
 
-boxplot(totalMeanForce_N~Condition,data=hdata2, main="Mean Total",
+boxplot(totalMeanForce_N~Condition,data=hdata, main="Mean Total",
         xlab="vGRF (mN)", ylab="Condition")$out
 
-boxplot(meanForceAsymm_percent~Condition,data=hdata2, main="Mean Asymm",
+boxplot(meanForceAsymm_percent~Condition,data=hdata, main="Mean Asymm",
         xlab="Percentage", ylab="Condition")$out
 
 #Normalized-Mean------------------------------------------------
-boxplot(meanForceNorm_L~Condition,data=hdata2, main="Mean Left",
+boxplot(meanForceNorm_L~Condition,data=hdata, main="Mean Left",
         xlab="Percentage of BW", ylab="Condition")$out 
 
-boxplot(meanForceNorm_R~Condition,data=hdata2, main="Mean Right",
+boxplot(meanForceNorm_R~Condition,data=hdata, main="Mean Right",
         xlab="Percentage of BW", ylab="Condition")$out
 
-boxplot(totalmeanforceNorm~Condition,data=hdata2, main="Mean Total",
+boxplot(totalmeanforceNorm~Condition,data=hdata, main="Mean Total",
         xlab="Percentage of BW", ylab="Condition")$out
 
 
@@ -2609,3 +2832,8 @@ summaryBy(NL_Peak_LMT~ Condition, data = hdata,
 
 summaryBy(NL_Peak_RMT~ Condition, data = hdata,
           FUN = function(x) { c(m = mean(x), s = sd(x)) } )
+
+write.csv(hdata, "C:\\Users\\jmarti38\\Desktop\\data.csv")
+library("writexl") 
+library(xlsx)
+write_xlsx(hdata,"C:\\Users\\jmarti38\\Desktop\\df.xlsx")
