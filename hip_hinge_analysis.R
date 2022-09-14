@@ -57,7 +57,7 @@ library(ARTool)
 #-----------------------2 - load file -------------------------------
 # load data from spreadsheet
 hdata <- read_excel("20220907_Data_Hinge_Paper.xlsx",sheet = "Raw_BMI_REMOVED")
-my_data<-na.omit(hdata)
+hdata<-na.omit(hdata)
 
 
 #-----------------------3 - assign variables ------------------------
