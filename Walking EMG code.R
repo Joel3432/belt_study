@@ -27,12 +27,16 @@ library(Hmisc)
 library(gridExtra)
 library("corrplot")
 library("MANOVA.RM")
-
-
+library(readxl)
+library(ARTool)
+library(emmeans)    #emmeans, contrast
+library(phia)       #testInteractions
+library(MANOVA.RM)
 
 #-----------------------2 - load file -------------------------------
 # load data from spreadsheet
 data <- data.frame(X20220927_BeltWalkingACSMabstract)
+data<- read_excel("20220927_BeltWalkingACSMabstract.xlsx",sheet = "Winsorized 3SD")  #loads non-normalized values winszorized to 2SD
 
 
 #-----------------------3 - assign variables ------------------------
@@ -75,8 +79,8 @@ boxplot(RBF)
 hist(RBF)
 boxplot(LAB)
 hist(LAB)
-boxplot(RRA)
-hist(RRA)
+boxplot(RAB)
+hist(RAB)
 boxplot(LMF)
 hist(LMF)
 boxplot(RMF)
@@ -85,48 +89,46 @@ hist(RMF)
 #normality testing
 #Shapiro Wilkes test
 
-
+shapiro.test(LRF)
+shapiro.test(LRF[condition == 1])
 shapiro.test(LRF[condition == 2])
-
 shapiro.test(LRF[condition == 4])
 
-
-
+shapiro.test(RRF)
+shapiro.test(RRF[condition == 1])
 shapiro.test(RRF[condition == 2])
-
 shapiro.test(RRF[condition == 4])
 
-
-
+shapiro.test(LBF)
+shapiro.test(LBF[condition == 1])
 shapiro.test(LBF[condition == 2])
-
 shapiro.test(LBF[condition == 4])
 
-
-
+shapiro.test(RBF)
+shapiro.test(RBF[condition == 1])
 shapiro.test(RBF[condition == 2])
-
 shapiro.test(RBF[condition == 4])
 
-
+shapiro.test(LAB)
+shapiro.test(LAB[condition == 1])
 shapiro.test(LAB[condition == 2])
-
 shapiro.test(LAB[condition == 4])
 
-
+shapiro.test(RAB)
+shapiro.test(RAB[condition == 1])
 shapiro.test(RAB[condition == 2])
-
 shapiro.test(RAB[condition == 4])
 
-
+shapiro.test(LMF)
+shapiro.test(LMF[condition == 1])
 shapiro.test(LMF[condition == 2])
-
 shapiro.test(LMF[condition == 4])
 
-
+shapiro.test(RMF)
+shapiro.test(RMF[condition == 1])
 shapiro.test(RMF[condition == 2])
-
 shapiro.test(RMF[condition == 4])
+
 
 #examine multicollinearity 
 
@@ -139,25 +141,24 @@ shapiro.test(RMF[condition == 4])
 
 #install.packages("PerformanceAnalytics")
 library(PerformanceAnalytics)
-chart.Correlation(data, histogram = TRUE, method = "pearson")
 
+emgData<-data.frame(data$LRF,data$RRF,data$LBF,data$RBF,data$LAB,data$RAB,data$LMF,data$RMF)
+chart.Correlation(emgData, histogram = TRUE, method = "pearson")
 
 
 # repeated measures MANOVA
 
-install.packages("MANOVA.RM")
-library(MANOVA.RM)
 
 df = data.frame(subject,condition,LRF,RRF,LBF,RBF,LAB,RAB,LMF,RMF)
 
 
-emgBelt <- multRM(cbind(LRF, RRF, LBF, RBF, LAB, RAB, LMF, RMF) ~ condition, data = data, 
-                  subject = subject, within = condition, iter = 10000, alpha = 0.05, dec = 3)
+emgBelt <- multRM(cbind(LRF, RRF, LBF, RBF, LAB, RAB, LMF, RMF) ~ condition, data = df, 
+                  subject = "subject", within = "condition", iter = 10000, alpha = 0.05, dec = 3)
 summary(emgBelt)
 
 class(subject)
 
-#Friendman's Test posthoc 
+#Friedman's Test posthoc 
 
 res.fried.winsLRF <- friedman_test(LRF ~ condition | subject, data = df)
 res.fried.winsLRF
@@ -251,4 +252,52 @@ aggregate(df$RMF, list(df$condition), FUN=mean)
 aggregate(df$RMF, list(df$condition), FUN=sd)
 
 
+#alternative method
+artLRF = art(LRF~ condition + (1|Subject), data=data)
+summary(artLRF)
+anova(artLRF)
+#Post-hoc for sig differences
+contrast(emmeans(artlm(artLRF, "condition"), ~ condition), method = "pairwise")
 
+artRRF = art(RRF~ condition + (1|Subject), data=data)
+summary(artRRF)
+anova(artRRF)
+#Post-hoc for sig differences
+contrast(emmeans(artlm(artRRF, "condition"), ~ condition), method = "pairwise")
+
+artLBF = art(LBF~ condition + (1|Subject), data=data)
+summary(artLBF)
+anova(artLBF)
+#Post-hoc for sig differences
+contrast(emmeans(artlm(artLBF, "condition"), ~ condition), method = "pairwise")
+
+
+artRBF = art(RBF~ condition + (1|Subject), data=data)
+summary(artRBF)
+anova(artRBF)
+#Post-hoc for sig differences
+contrast(emmeans(artlm(artRBF, "condition"), ~ condition), method = "pairwise")
+
+artLAB = art(LAB~ condition + (1|Subject), data=data)
+summary(artLAB)
+anova(artLAB)
+#Post-hoc for sig differences
+contrast(emmeans(artlm(artLAB, "condition"), ~ condition), method = "pairwise")
+
+artRAB = art(RAB~ condition + (1|Subject), data=data)
+summary(artRAB)
+anova(artRAB)
+#Post-hoc for sig differences
+contrast(emmeans(artlm(artRAB, "condition"), ~ condition), method = "pairwise")
+
+artLMF = art(LMF~ condition + (1|Subject), data=data)
+summary(artLMF)
+anova(artLMF)
+#Post-hoc for sig differences
+contrast(emmeans(artlm(artLMF, "condition"), ~ condition), method = "pairwise")
+
+artRMF = art(RMF~ condition + (1|Subject), data=data)
+summary(artRMF)
+anova(artRMF)
+#Post-hoc for sig differences
+contrast(emmeans(artlm(artRMF, "condition"), ~ condition), method = "pairwise")
