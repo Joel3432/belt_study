@@ -159,59 +159,66 @@ summary(emgBelt)
 
 library()
 #Friedman's Test posthoc 
+#added wilcoxon signed ranks test when necessary.
+#added effect size calculations when necessary.
 
+#left rectus femoris 
 res.fried.winsLRF <- friedman_test(LRF ~ condition | subject, data = df)
 res.fried.winsLRF
 
-
-# pairwise comparisons
 LRFposthoc <- pairwise.wilcox.test(LRF, condition, paired = TRUE, exact = FALSE,  p.adj = "bonferroni", correct = FALSE)
 LRFposthoc
 
+install.packages('coin')
+library(coin)
+#calculate effect size r
+wilcox_effsize(df, LRF ~ condition, paired = TRUE)
 
-
+#right rectus femoris 
 res.fried.winsRRF <- friedman_test(RRF ~ condition | subject, data = df)
 res.fried.winsRRF
-
 
 RRFposthoc <- pairwise.wilcox.test(RRF, condition, paired = TRUE, exact = FALSE,  p.adj = "bonferroni", correct = FALSE)
 RRFposthoc
 
+wilcox_effsize(df, RRF ~ condition, paired = TRUE)
 
+#left biceps femoris 
 res.fried.winsLBF <- friedman_test(LBF ~ condition | subject, data = df)
 res.fried.winsLBF
-
 
 LBFposthoc <- pairwise.wilcox.test(LBF, condition, paired = TRUE, exact = FALSE,  p.adj = "bonferroni", correct = FALSE)
 LBFposthoc
 
-
+#right biceps femoris 
 res.fried.winsRBF <- friedman_test(RBF ~ condition | subject, data = df)
 res.fried.winsRBF
 
-
+#left abdominals
 res.fried.winsLAB <- friedman_test(LAB ~ condition | subject, data = df)
 res.fried.winsLAB
 
-
+#right abdominals
 res.fried.winsRAB <- friedman_test(RAB ~ condition | subject, data = df)
 res.fried.winsRAB
 
-
+#left multifidus
 res.fried.winsLMF <- friedman_test(LMF ~ condition | subject, data = df)
 res.fried.winsLMF
-
 
 LMFposthoc <- pairwise.wilcox.test(LMF, condition, paired = TRUE, exact = FALSE,  p.adj = "bonferroni", correct = FALSE)
 LMFposthoc
 
+wilcox_effsize(df, LMF ~ condition, paired = TRUE)
 
+#right multifidus
 res.fried.winsRMF <- friedman_test(RMF ~ condition | subject, data = df)
 res.fried.winsRMF
-#p = 0.00144
 
 RMFposthoc <- pairwise.wilcox.test(RMF, condition, paired = TRUE, exact = FALSE,  p.adj = "bonferroni", correct = FALSE)
 RMFposthoc
+
+wilcox_effsize(df, RMF ~ condition, paired = TRUE)
 
 aggregate(df$LRF, list(df$condition), FUN=mean)
 aggregate(df$LRF, list(df$condition), FUN=sd)
