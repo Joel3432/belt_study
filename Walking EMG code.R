@@ -35,8 +35,9 @@ library(MANOVA.RM)
 
 #-----------------------2 - load file -------------------------------
 # load data from spreadsheet
-data <- data.frame(X20220927_BeltWalkingACSMabstract)
-data<- read_excel("20220927_BeltWalkingACSMabstract.xlsx",sheet = "Winsorized 3SD")  #loads non-normalized values winszorized to 2SD
+data <- read_excel("20220929_BeltWalkingACSMabstract.xlsx", sheet="WinRelData99")
+
+#sheet options are; "WinRelData99" "WinRawData99"
 
 
 #-----------------------3 - assign variables ------------------------
@@ -156,65 +157,54 @@ emgBelt <- multRM(cbind(LRF, RRF, LBF, RBF, LAB, RAB, LMF, RMF) ~ condition, dat
                   subject = "subject", within = "condition", iter = 10000, alpha = 0.05, dec = 3)
 summary(emgBelt)
 
-class(subject)
-
+library()
 #Friedman's Test posthoc 
 
 res.fried.winsLRF <- friedman_test(LRF ~ condition | subject, data = df)
 res.fried.winsLRF
-#p = 0.00284
+
 
 # pairwise comparisons
 LRFposthoc <- pairwise.wilcox.test(LRF, condition, paired = TRUE, exact = FALSE,  p.adj = "bonferroni", correct = FALSE)
 LRFposthoc
-# 1 vs 2 = 0.00147
-# 1 vs 4 = 0.00034
-# 2 vs. 4 = 1.000
+
 
 
 res.fried.winsRRF <- friedman_test(RRF ~ condition | subject, data = df)
 res.fried.winsRRF
-#p = 0.0111
+
 
 RRFposthoc <- pairwise.wilcox.test(RRF, condition, paired = TRUE, exact = FALSE,  p.adj = "bonferroni", correct = FALSE)
 RRFposthoc
 
-#1 vs 2 = 0.0034
-#1vs 4 = 0.0025
-#2 vs 4 = 1.000
 
 res.fried.winsLBF <- friedman_test(LBF ~ condition | subject, data = df)
 res.fried.winsLBF
-# p =  0.04478
+
 
 LBFposthoc <- pairwise.wilcox.test(LBF, condition, paired = TRUE, exact = FALSE,  p.adj = "bonferroni", correct = FALSE)
 LBFposthoc
-#1v2 = 0.434
-#1v4 = 0.011
-#2v4 = 0.538
+
 
 res.fried.winsRBF <- friedman_test(RBF ~ condition | subject, data = df)
 res.fried.winsRBF
-# p = 0.0724
+
 
 res.fried.winsLAB <- friedman_test(LAB ~ condition | subject, data = df)
 res.fried.winsLAB
-#p = 0.130
+
 
 res.fried.winsRAB <- friedman_test(RAB ~ condition | subject, data = df)
 res.fried.winsRAB
-# p = 0.130
+
 
 res.fried.winsLMF <- friedman_test(LMF ~ condition | subject, data = df)
 res.fried.winsLMF
-# p = 0.0137
+
 
 LMFposthoc <- pairwise.wilcox.test(LMF, condition, paired = TRUE, exact = FALSE,  p.adj = "bonferroni", correct = FALSE)
 LMFposthoc
 
-# 1 vs 2 = 0.0030
-# 1 vs 4 = 0.0065
-#2 vs 4 = 1.000
 
 res.fried.winsRMF <- friedman_test(RMF ~ condition | subject, data = df)
 res.fried.winsRMF
@@ -222,10 +212,6 @@ res.fried.winsRMF
 
 RMFposthoc <- pairwise.wilcox.test(RMF, condition, paired = TRUE, exact = FALSE,  p.adj = "bonferroni", correct = FALSE)
 RMFposthoc
-
-# 1vs 2 = 0.05248
-# 1 vs 4 = 0.00034
-# 2 vs 4 = 1.000
 
 aggregate(df$LRF, list(df$condition), FUN=mean)
 aggregate(df$LRF, list(df$condition), FUN=sd)
