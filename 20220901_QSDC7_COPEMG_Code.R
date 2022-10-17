@@ -20,11 +20,16 @@ library(ARTool)
 
 #-----------------------2 - load file -------------------------------
 # load data from spreadsheet
-data <- read_excel("BeltStudyQSDC7WinsData.xlsx", sheet="WinsByTask")
+data <- read_excel("ArtoolChiDataBook.xlsx", sheet="ARToolSheet_NoNylon")
 
-#other options: "WinsQuietStanding", "WinsDualComms","WinsSerial7", "WinsByTask" 
+# for separate Chi-Square analyses, upload the sheets below 
 
+QSdata <- read_excel("ArtoolChiDataBook.xlsx", sheet="QS")
 
+S7data <- read_excel("ArtoolChiDataBook.xlsx", sheet="S7")
+
+DCdata <- read_excel("ArtoolChiDataBook.xlsx", sheet="DC")
+ 
 
 #-----------------------3 - assign variables ------------------------
 subject <- data$Subject
@@ -52,11 +57,10 @@ task<- as.factor(data$Task)
 
 #Label conditions 
 data$Condition <- factor(data$Condition,levels = c(1,2,3),labels = c("Control", "Leather belt","Vest"))
-data$Task <- factor(data$Task,levels = c(1,2,3),labels = c("Quiet Standing", "Dual Comms","Serial 7's"))
+data$Task <- factor(data$Task,levels = c(1,2,3),labels = c("Quiet Standing", "Serial 7's","Dual Comms"))
 #winsorize data already performed in microsoft excel 
 
-condition <- factor(condition,levels = c(1,2,3),labels = c("Control", "Leather belt","Vest"))
-task <- factor(task,levels = c(1,2,3),labels = c("Quiet Standing", "Dual Comms","Serial 7's"))
+
 df = data.frame(subject,condition,task,LRF,RRF,LBF,RBF,LAB,RAB,LMF,RMF,rangeAP,rangeML,meanvel,meanvelAP,meanvelML,ellipsearea)
 
 #-----------------------4 - explore data  ------------------------
@@ -74,13 +78,13 @@ df = data.frame(subject,condition,task,LRF,RRF,LBF,RBF,LAB,RAB,LMF,RMF,rangeAP,r
 artLAB = art(LAB ~ condition * task + (1|subject), data=df)
 summary(artLAB)
 anova(artLAB)
-#Post Hoc Condition
+#Post Hoc Condition Unnecessary 
 art.con(artLAB, ~condition, adjust="bonferroni") %>%  # run ART-C for X1
   summary() %>%  # add significance stars to the output
   mutate(sig. = symnum(p.value, corr=FALSE, na=FALSE,
                        cutpoints = c(0, 0.001, 0.01, 0.05, 0.1, 1),
                        symbols = c("***", "**", "*", ".", " ")))
-#Post Hoc Task 
+#Post Hoc Task Unnecessary 
 art.con(artLAB, ~task, adjust="bonferroni") %>%  # run ART-C for X1
   summary() %>%  # add significance stars to the output
   mutate(sig. = symnum(p.value, corr=FALSE, na=FALSE,
@@ -92,6 +96,21 @@ art.con(artLAB, "condition:task", adjust="bonferroni") %>%  # run ART-C for X1 Ã
   mutate(sig. = symnum(p.value, corr=FALSE, na=FALSE,
                        cutpoints = c(0, .001, .01, .05, .10, 1),
                        symbols = c("***", "**", "*", ".", " ")))
+
+#interaction plot 
+Condition <-df$condition
+
+interaction.plot(x.factor     = df$task, xlab = "Task",
+                 trace.factor = Condition,
+                 response     = df$LAB, ylab = "Left Abdominals RMS Activity",
+                 fun = mean,
+                 type="b",
+                 col=c("black","dark gray","light gray"),  ### Colors for levels of trace var.
+                 pch=c(19, 17, 15),             ### Symbols for levels of trace var.
+                 fixed=TRUE,                    ### Order by factor order in data
+                 leg.bty = "o")
+
+
 
 #Analysis
 artRAB = art(RAB ~ condition * task + (1|subject), data=df)
@@ -109,7 +128,7 @@ art.con(artRAB, ~task, adjust="bonferroni") %>%  # run ART-C for X1
   mutate(sig. = symnum(p.value, corr=FALSE, na=FALSE,
                        cutpoints = c(0, 0.001, 0.01, 0.05, 0.1, 1),
                        symbols = c("***", "**", "*", ".", " ")))
-#Post Hoc Interaction
+#Post Hoc Interaction Unnecessary 
 art.con(artRAB, "condition:task", adjust="bonferroni") %>%  # run ART-C for X1 Ã— X2
   summary() %>%  # add significance stars to the output
   mutate(sig. = symnum(p.value, corr=FALSE, na=FALSE,
@@ -131,11 +150,24 @@ art.con(artLMF, "condition:task", adjust="bonferroni") %>%  # run ART-C for X1 Ã
   mutate(sig. = symnum(p.value, corr=FALSE, na=FALSE,
                        cutpoints = c(0, .001, .01, .05, .10, 1),
                        symbols = c("***", "**", "*", ".", " ")))
+
+Condition <-df$condition
+
+interaction.plot(x.factor     = df$task, xlab = "Task",
+                 trace.factor = Condition,
+                 response     = df$LMF, ylab = "Left Multifidus RMS Activity",
+                 fun = mean,
+                 type="b",
+                 col=c("black","dark gray","light gray"),  ### Colors for levels of trace var.
+                 pch=c(19, 17, 15),             ### Symbols for levels of trace var.
+                 fixed=TRUE,                    ### Order by factor order in data
+                 leg.bty = "o")
+
 #Analysis 
 artRMF = art(RMF ~ condition * task + (1|subject), data=df)
 summary(artRMF)
 anova(artRMF)
-#Post Hoc Condition
+#Post Hoc Condition ##Unnecessary## 
 art.con(artRMF, ~condition, adjust="bonferroni") %>%  # run ART-C for X1
   summary() %>%  # add significance stars to the output
   mutate(sig. = symnum(p.value, corr=FALSE, na=FALSE,
@@ -163,27 +195,56 @@ art.con(artLRF, ~condition, adjust="bonferroni") %>%  # run ART-C for X1
   mutate(sig. = symnum(p.value, corr=FALSE, na=FALSE,
                        cutpoints = c(0, 0.001, 0.01, 0.05, 0.1, 1),
                        symbols = c("***", "**", "*", ".", " ")))
+
+#Post Hoc Task 
+art.con(artLRF, ~task, adjust="bonferroni") %>%  # run ART-C for X1
+  summary() %>%  # add significance stars to the output
+  mutate(sig. = symnum(p.value, corr=FALSE, na=FALSE,
+                       cutpoints = c(0, 0.001, 0.01, 0.05, 0.1, 1),
+                       symbols = c("***", "**", "*", ".", " ")))
+
+#Post Hoc Interaction
+art.con(artLRF, "condition:task", adjust="bonferroni") %>%  # run ART-C for X1 Ã— X2
+  summary() %>%  # add significance stars to the output
+  mutate(sig. = symnum(p.value, corr=FALSE, na=FALSE,
+                       cutpoints = c(0, .001, .01, .05, .10, 1),
+                       symbols = c("***", "**", "*", ".", " ")))
 #Analysis
 artRRF = art(RRF ~ condition * task + (1|subject), data=df)
 summary(artRRF)
 anova(artRRF)
+
+#Post Hoc Condition
+art.con(artRRF, ~condition, adjust="bonferroni") %>%  # run ART-C for X1
+  summary() %>%  # add significance stars to the output
+  mutate(sig. = symnum(p.value, corr=FALSE, na=FALSE,
+                       cutpoints = c(0, 0.001, 0.01, 0.05, 0.1, 1),
+                       symbols = c("***", "**", "*", ".", " ")))
 #Post Hoc Task 
 art.con(artRRF, ~task, adjust="bonferroni") %>%  # run ART-C for X1
   summary() %>%  # add significance stars to the output
   mutate(sig. = symnum(p.value, corr=FALSE, na=FALSE,
                        cutpoints = c(0, 0.001, 0.01, 0.05, 0.1, 1),
                        symbols = c("***", "**", "*", ".", " ")))
+
+#Post Hoc Interaction
+art.con(artRRF, "condition:task", adjust="bonferroni") %>%  # run ART-C for X1 Ã— X2
+  summary() %>%  # add significance stars to the output
+  mutate(sig. = symnum(p.value, corr=FALSE, na=FALSE,
+                       cutpoints = c(0, .001, .01, .05, .10, 1),
+                       symbols = c("***", "**", "*", ".", " ")))
+
 #Analysis
 artLBF = art(LBF ~ condition * task + (1|subject), data=df)
 summary(artLBF)
 anova(artLBF)
-#Post Hoc Condition
+#Post Hoc Condition ##unnecessary##
 art.con(artLBF, ~condition, adjust="bonferroni") %>%  # run ART-C for X1
   summary() %>%  # add significance stars to the output
   mutate(sig. = symnum(p.value, corr=FALSE, na=FALSE,
                        cutpoints = c(0, 0.001, 0.01, 0.05, 0.1, 1),
                        symbols = c("***", "**", "*", ".", " ")))
-#Post Hoc Task 
+#Post Hoc Task  ##unnecessary##
 art.con(artLBF, ~task, adjust="bonferroni") %>%  # run ART-C for X1
   summary() %>%  # add significance stars to the output
   mutate(sig. = symnum(p.value, corr=FALSE, na=FALSE,
@@ -262,8 +323,14 @@ art.con(artellipse, ~task, adjust="bonferroni") %>%  # run ART-C for X1
                        cutpoints = c(0, 0.001, 0.01, 0.05, 0.1, 1),
                        symbols = c("***", "**", "*", ".", " ")))
 
+#Descriptives
+aggregate(df$RAB, list(df$task), FUN=mean)
+aggregate(df$RRF, list(df$task), FUN=mean)
 
-#Grouped Bar Chart visuals if applicable (only if "WinsByTask" is uploaded)
+
+
+
+#Grouped Bar Chart visuals if applicable
 
 ggplot(df, aes(fill=condition, y=LAB, x=task)) + 
   geom_bar(position="dodge", stat="identity")
