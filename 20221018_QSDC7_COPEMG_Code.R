@@ -54,7 +54,12 @@ LMF_Rel <- ARTooldata$LMF_Rel
 RMF_Rel <- ARTooldata$RMF_Rel
 
 
+
 #Ellipse Change Analysis
+Gender <- EllipseChangedata$Gender
+Height <- EllipseChangedata$Height_cm
+Mass <- EllipseChangedata$Mass
+BMI <- EllipseChangedata$BMI
 EllipseSubject <- EllipseChangedata$Subject
 EllipseCondition <- EllipseChangedata$Condition
 QSEllipseChange <- EllipseChangedata$QSEllipseChange
@@ -114,7 +119,8 @@ df = data.frame(subject,condition,task,LRF,RRF,LBF,RBF,LAB,RAB,LMF,RMF,LAB_Rel,R
 #summary to check that art was done properly ( should be 0's)
 #run as ANOVA
 
-#Analysis 
+#Analysis on RMS data 
+#Analysis
 artLAB = art(LAB ~ condition * task + (1|subject), data=df)
 summary(artLAB)
 anova(artLAB)
@@ -362,6 +368,7 @@ art.con(artellipse, ~task, adjust="bonferroni") %>%  # run ART-C for X1
                        cutpoints = c(0, 0.001, 0.01, 0.05, 0.1, 1),
                        symbols = c("***", "**", "*", ".", " ")))
 
+
 #Descriptives
 # use code below for means and SDs. Change to muscle of COP of interest. 
 #Change list to condition or task 
@@ -499,3 +506,5 @@ wilcox.test(EllipseChangeBelt$DCLRF ~ EllipseChangeBelt$DCEllipseChange,na.rm=TR
 wilcox.test(EllipseChangeBelt$DCRRF ~ EllipseChangeBelt$DCEllipseChange,na.rm=TRUE, paired=FALSE, exact=FALSE, conf.int=TRUE)
 wilcox.test(EllipseChangeBelt$DCLBF ~ EllipseChangeBelt$DCEllipseChange,na.rm=TRUE, paired=FALSE, exact=FALSE, conf.int=TRUE)
 wilcox.test(EllipseChangeBelt$DCRBF ~ EllipseChangeBelt$DCEllipseChange,na.rm=TRUE, paired=FALSE, exact=FALSE, conf.int=TRUE)
+
+
