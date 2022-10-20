@@ -17,6 +17,10 @@ library(dplyr)
 library(tidyr)
 library(readxl)
 library(ARTool)
+library(emmeans)
+library(multcomp)
+
+library(rcompanion)
 
 #-----------------------2 - load file -------------------------------
 # load data from spreadsheet
@@ -119,18 +123,25 @@ df = data.frame(subject,condition,task,LRF,RRF,LBF,RBF,LAB,RAB,LMF,RMF,LAB_Rel,R
 #summary to check that art was done properly ( should be 0's)
 #run as ANOVA
 
-#Analysis on RMS data 
+#Analysis on Relative data 
 #Analysis
-artLAB = art(LAB ~ condition * task + (1|subject), data=df)
+artLAB = art(LAB_Rel ~ condition * task + (1|subject), data=df)
 summary(artLAB)
 anova(artLAB)
-#Post Hoc Condition Unnecessary 
+
+#attempting affect size but can't get it to work. 
+artLABeffectsize = anova(artLAB)
+m.art.anova$eta.sq.part = with(artLABeffectsize, `Sum Sq`/(`Sum Sq` + `Sum Sq.res`))
+
+artLABeffectsize$part.eta.sq = with(artLABeffectsize, `F value`* `Df` / (`F value` * `Df` + `Df.res`))
+
+#Post Hoc Condition 
 art.con(artLAB, ~condition, adjust="bonferroni") %>%  # run ART-C for X1
   summary() %>%  # add significance stars to the output
   mutate(sig. = symnum(p.value, corr=FALSE, na=FALSE,
                        cutpoints = c(0, 0.001, 0.01, 0.05, 0.1, 1),
                        symbols = c("***", "**", "*", ".", " ")))
-#Post Hoc Task Unnecessary 
+#Post Hoc Task 
 art.con(artLAB, ~task, adjust="bonferroni") %>%  # run ART-C for X1
   summary() %>%  # add significance stars to the output
   mutate(sig. = symnum(p.value, corr=FALSE, na=FALSE,
@@ -144,11 +155,11 @@ art.con(artLAB, "condition:task", adjust="bonferroni") %>%  # run ART-C for X1 Ã
                        symbols = c("***", "**", "*", ".", " ")))
 
 #interaction plot 
-Condition <-df$condition
+
 
 interaction.plot(x.factor     = df$task, xlab = "Task",
                  trace.factor = condition,
-                 response     = df$LAB, ylab = "Left Abdominals RMS Activity",
+                 response     = df$LAB_Rel, ylab = "Left Abdominals RMS Activity",
                  fun = mean,
                  type="b",
                  col=c("black","dark gray","light gray"),  ### Colors for levels of trace var.
@@ -158,7 +169,7 @@ interaction.plot(x.factor     = df$task, xlab = "Task",
 
 
 #Analysis
-artRAB = art(RAB ~ condition * task + (1|subject), data=df)
+artRAB = art(RAB_Rel ~ condition * task + (1|subject), data=df)
 summary(artRAB)
 anova(artRAB)
 #Post Hoc Condition
@@ -173,16 +184,37 @@ art.con(artRAB, ~task, adjust="bonferroni") %>%  # run ART-C for X1
   mutate(sig. = symnum(p.value, corr=FALSE, na=FALSE,
                        cutpoints = c(0, 0.001, 0.01, 0.05, 0.1, 1),
                        symbols = c("***", "**", "*", ".", " ")))
-#Post Hoc Interaction Unnecessary 
+#Post Hoc Interaction 
 art.con(artRAB, "condition:task", adjust="bonferroni") %>%  # run ART-C for X1 Ã— X2
   summary() %>%  # add significance stars to the output
   mutate(sig. = symnum(p.value, corr=FALSE, na=FALSE,
                        cutpoints = c(0, .001, .01, .05, .10, 1),
                        symbols = c("***", "**", "*", ".", " ")))
+
+#interaction plot 
+
+
+interaction.plot(x.factor     = df$task, xlab = "Task",
+                 trace.factor = condition,
+                 response     = df$RAB_Rel, ylab = "Left Abdominals RMS Activity",
+                 fun = mean,
+                 type="b",
+                 col=c("black","dark gray","light gray"),  ### Colors for levels of trace var.
+                 pch=c(19, 17, 15),             ### Symbols for levels of trace var.
+                 fixed=TRUE,                    ### Order by factor order in data
+                 leg.bty = "o")
+
 #Analysis
-artLMF = art(LMF ~ condition * task + (1|subject), data=df)
+artLMF = art(LMF_Rel ~ condition * task + (1|subject), data=df)
 summary(artLMF)
 anova(artLMF)
+
+# Post Hoc Condition
+art.con(artLMF, ~condition, adjust="bonferroni") %>%  # run ART-C for X1
+  summary() %>%  # add significance stars to the output
+  mutate(sig. = symnum(p.value, corr=FALSE, na=FALSE,
+                       cutpoints = c(0, 0.001, 0.01, 0.05, 0.1, 1),
+                       symbols = c("***", "**", "*", ".", " ")))
 # Post Hoc Task 
 art.con(artLMF, ~task, adjust="bonferroni") %>%  # run ART-C for X1
   summary() %>%  # add significance stars to the output
@@ -196,7 +228,6 @@ art.con(artLMF, "condition:task", adjust="bonferroni") %>%  # run ART-C for X1 Ã
                        cutpoints = c(0, .001, .01, .05, .10, 1),
                        symbols = c("***", "**", "*", ".", " ")))
 
-Condition <-df$condition
 
 interaction.plot(x.factor     = df$task, xlab = "Task",
                  trace.factor = condition,
@@ -209,10 +240,10 @@ interaction.plot(x.factor     = df$task, xlab = "Task",
                  leg.bty = "o")
 
 #Analysis 
-artRMF = art(RMF ~ condition * task + (1|subject), data=df)
+artRMF = art(RMF_Rel ~ condition * task + (1|subject), data=df)
 summary(artRMF)
 anova(artRMF)
-#Post Hoc Condition ##Unnecessary## 
+#Post Hoc Condition
 art.con(artRMF, ~condition, adjust="bonferroni") %>%  # run ART-C for X1
   summary() %>%  # add significance stars to the output
   mutate(sig. = symnum(p.value, corr=FALSE, na=FALSE,
@@ -230,8 +261,22 @@ art.con(artRMF, "condition:task", adjust="bonferroni") %>%  # run ART-C for X1 Ã
   mutate(sig. = symnum(p.value, corr=FALSE, na=FALSE,
                        cutpoints = c(0, .001, .01, .05, .10, 1),
                        symbols = c("***", "**", "*", ".", " ")))
+
+#interaction plot 
+
+
+interaction.plot(x.factor     = df$task, xlab = "Task",
+                 trace.factor = condition,
+                 response     = df$RMF_Rel, ylab = "Left Abdominals RMS Activity",
+                 fun = mean,
+                 type="b",
+                 col=c("black","dark gray","light gray"),  ### Colors for levels of trace var.
+                 pch=c(19, 17, 15),             ### Symbols for levels of trace var.
+                 fixed=TRUE,                    ### Order by factor order in data
+                 leg.bty = "o")
+
 #Analysis
-artLRF = art(LRF ~ condition * task + (1|subject), data=df)
+artLRF = art(LRF_Rel ~ condition * task + (1|subject), data=df)
 summary(artLRF)
 anova(artLRF)
 #Post Hoc Condition
@@ -254,8 +299,22 @@ art.con(artLRF, "condition:task", adjust="bonferroni") %>%  # run ART-C for X1 Ã
   mutate(sig. = symnum(p.value, corr=FALSE, na=FALSE,
                        cutpoints = c(0, .001, .01, .05, .10, 1),
                        symbols = c("***", "**", "*", ".", " ")))
+
+#interaction plot 
+
+
+interaction.plot(x.factor     = df$task, xlab = "Task",
+                 trace.factor = condition,
+                 response     = df$LRF_Rel, ylab = "Left Abdominals RMS Activity",
+                 fun = mean,
+                 type="b",
+                 col=c("black","dark gray","light gray"),  ### Colors for levels of trace var.
+                 pch=c(19, 17, 15),             ### Symbols for levels of trace var.
+                 fixed=TRUE,                    ### Order by factor order in data
+                 leg.bty = "o")
+
 #Analysis
-artRRF = art(RRF ~ condition * task + (1|subject), data=df)
+artRRF = art(RRF_Rel ~ condition * task + (1|subject), data=df)
 summary(artRRF)
 anova(artRRF)
 
@@ -279,25 +338,61 @@ art.con(artRRF, "condition:task", adjust="bonferroni") %>%  # run ART-C for X1 Ã
                        cutpoints = c(0, .001, .01, .05, .10, 1),
                        symbols = c("***", "**", "*", ".", " ")))
 
+#interaction plot 
+
+
+interaction.plot(x.factor     = df$task, xlab = "Task",
+                 trace.factor = condition,
+                 response     = df$RRF_Rel, ylab = "Left Abdominals RMS Activity",
+                 fun = mean,
+                 type="b",
+                 col=c("black","dark gray","light gray"),  ### Colors for levels of trace var.
+                 pch=c(19, 17, 15),             ### Symbols for levels of trace var.
+                 fixed=TRUE,                    ### Order by factor order in data
+                 leg.bty = "o")
+
+
 #Analysis
-artLBF = art(LBF ~ condition * task + (1|subject), data=df)
+artLBF = art(LBF_Rel ~ condition * task + (1|subject), data=df)
 summary(artLBF)
 anova(artLBF)
-#Post Hoc Condition ##unnecessary##
+#Post Hoc Condition 
 art.con(artLBF, ~condition, adjust="bonferroni") %>%  # run ART-C for X1
   summary() %>%  # add significance stars to the output
   mutate(sig. = symnum(p.value, corr=FALSE, na=FALSE,
                        cutpoints = c(0, 0.001, 0.01, 0.05, 0.1, 1),
                        symbols = c("***", "**", "*", ".", " ")))
-#Post Hoc Task  ##unnecessary##
+#Post Hoc Task
 art.con(artLBF, ~task, adjust="bonferroni") %>%  # run ART-C for X1
   summary() %>%  # add significance stars to the output
   mutate(sig. = symnum(p.value, corr=FALSE, na=FALSE,
                        cutpoints = c(0, 0.001, 0.01, 0.05, 0.1, 1),
                        symbols = c("***", "**", "*", ".", " ")))
 
+#Post Hoc Interaction
+art.con(artLBF, "condition:task", adjust="bonferroni") %>%  # run ART-C for X1 Ã— X2
+  summary() %>%  # add significance stars to the output
+  mutate(sig. = symnum(p.value, corr=FALSE, na=FALSE,
+                       cutpoints = c(0, .001, .01, .05, .10, 1),
+                       symbols = c("***", "**", "*", ".", " ")))
+
+#interaction plot 
+
+
+interaction.plot(x.factor     = df$task, xlab = "Task",
+                 trace.factor = condition,
+                 response     = df$LBF_Rel, ylab = "Left Abdominals RMS Activity",
+                 fun = mean,
+                 type="b",
+                 col=c("black","dark gray","light gray"),  ### Colors for levels of trace var.
+                 pch=c(19, 17, 15),             ### Symbols for levels of trace var.
+                 fixed=TRUE,                    ### Order by factor order in data
+                 leg.bty = "o")
+
+
+
 #Analysis
-artRBF = art(RBF ~ condition * task + (1|subject), data=df)
+artRBF = art(RBF_Rel ~ condition * task + (1|subject), data=df)
 summary(artRBF)
 anova(artRBF)
 #Post Hoc Condition
@@ -306,6 +401,36 @@ art.con(artRBF, ~condition, adjust="bonferroni") %>%  # run ART-C for X1
   mutate(sig. = symnum(p.value, corr=FALSE, na=FALSE,
                        cutpoints = c(0, 0.001, 0.01, 0.05, 0.1, 1),
                        symbols = c("***", "**", "*", ".", " ")))
+
+#Post Hoc Task
+art.con(artRBF, ~task, adjust="bonferroni") %>%  # run ART-C for X1
+  summary() %>%  # add significance stars to the output
+  mutate(sig. = symnum(p.value, corr=FALSE, na=FALSE,
+                       cutpoints = c(0, 0.001, 0.01, 0.05, 0.1, 1),
+                       symbols = c("***", "**", "*", ".", " ")))
+
+#Post Hoc Interaction
+art.con(artRBF, "condition:task", adjust="bonferroni") %>%  # run ART-C for X1 Ã— X2
+  summary() %>%  # add significance stars to the output
+  mutate(sig. = symnum(p.value, corr=FALSE, na=FALSE,
+                       cutpoints = c(0, .001, .01, .05, .10, 1),
+                       symbols = c("***", "**", "*", ".", " ")))
+
+#interaction plot 
+
+
+interaction.plot(x.factor     = df$task, xlab = "Task",
+                 trace.factor = condition,
+                 response     = df$RBF_Rel, ylab = "Left Abdominals RMS Activity",
+                 fun = mean,
+                 type="b",
+                 col=c("black","dark gray","light gray"),  ### Colors for levels of trace var.
+                 pch=c(19, 17, 15),             ### Symbols for levels of trace var.
+                 fixed=TRUE,                    ### Order by factor order in data
+                 leg.bty = "o")
+
+
+
 #Analysis
 artrangeAP = art(rangeAP ~ condition * task + (1|subject), data=df)
 summary(artrangeAP)
@@ -475,8 +600,18 @@ wilcox.test(EllipseChangeVest$DCRRF ~ EllipseChangeVest$DCEllipseChange,na.rm=TR
 wilcox.test(EllipseChangeVest$DCLBF ~ EllipseChangeVest$DCEllipseChange,na.rm=TRUE, paired=FALSE, exact=FALSE, conf.int=TRUE)
 wilcox.test(EllipseChangeVest$DCRBF ~ EllipseChangeVest$DCEllipseChange,na.rm=TRUE, paired=FALSE, exact=FALSE, conf.int=TRUE)
 
+#analyze mean and SD of LAB 
 aggregate(EllipseChangeVest$DCLAB, list(EllipseChangeVest$DCEllipseChange), FUN=mean)
 aggregate(EllipseChangeVest$DCLAB, list(EllipseChangeVest$DCEllipseChange), FUN=sd)
+
+#assign variables 
+DCEllipseChangeVest <- EllipseChangeVest$DCEllipseChange
+DCLabVest<-EllipseChangeVest$DCLAB
+#create new data frame for effect size calculation
+effectsizedf <- data.frame(DCEllipseChangeVest, DCLabVest)
+#calculate effect size 
+wilcox_effsize(effectsizedf, DCLabVest ~ DCEllipseChangeVest, paired = FALSE)
+
 
 #Assess differences in muscular activity between those who increased and decreased COP during belt condition
 
